@@ -1,84 +1,111 @@
-import React from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 
-const Navbar = ({
-    activeSection,
-    mobileMenuOpen,
-    setMobileMenuOpen,
-    scrollToSection,
-    heroRef,
-    aboutRef,
-    projectsRef,
-    skillsRef,
-    contactRef
-}) => {
-    return (
-        <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex-shrink-0">
-                        <span className="text-2xl font-bold text-white">
-                            Bikash.
-                        </span>
-                    </div>
+const NAV_ITEMS = ['Home', 'About', 'Projects', 'Skills', 'Contact'];
 
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-4">
-                            {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                                <button
-                                    key={item}
-                                    onClick={() => scrollToSection(
-                                        item === 'Home' ? heroRef :
-                                            item === 'About' ? aboutRef :
-                                                item === 'Projects' ? projectsRef :
-                                                    item === 'Skills' ? skillsRef : contactRef
-                                    )}
-                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${activeSection === item.toLowerCase()
-                                        ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-700'
-                                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                                        }`}
-                                >
-                                    {item}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+const Navbar = ({ activeSection, mobileMenuOpen, setMobileMenuOpen, scrollToSection, heroRef, aboutRef, projectsRef, skillsRef, contactRef }) => {
+  const [scrolled, setScrolled] = useState(false);
 
-                    <div className="flex items-center space-x-4 md:hidden">
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="p-2 rounded-md text-gray-700 dark:text-gray-300"
-                        >
-                            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-                    </div>
-                </div>
-            </div>
+  const refMap = { Home: heroRef, About: aboutRef, Projects: projectsRef, Skills: skillsRef, Contact: contactRef };
 
-            {/* Mobile menu */}
-            {mobileMenuOpen && (
-                <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                            <button
-                                key={item}
-                                onClick={() => scrollToSection(
-                                    item === 'Home' ? heroRef :
-                                        item === 'About' ? aboutRef :
-                                            item === 'Projects' ? projectsRef :
-                                                item === 'Skills' ? skillsRef : contactRef
-                                )}
-                                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                            >
-                                {item}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </nav>
-    );
+  return (
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      padding: scrolled ? '12px 0' : '20px 0',
+      background: scrolled ? 'rgba(14,14,14,0.92)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      borderBottom: scrolled ? '1px solid #2e2e2e' : 'none',
+      transition: 'all 0.35s ease'
+    }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Logo */}
+        <button onClick={() => scrollToSection(heroRef)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#c8ff00', letterSpacing: '-0.02em' }}>
+            Bikash<span style={{ color: '#f0f0f0' }}>.</span>
+          </span>
+        </button>
+
+        {/* Desktop nav */}
+        <div style={{ display: 'flex', gap: 4 }} className="hidden-mobile">
+          {NAV_ITEMS.map(item => {
+            const active = activeSection === item.toLowerCase();
+            return (
+              <button key={item} onClick={() => scrollToSection(refMap[item])} style={{
+                background: active ? 'rgba(200,255,0,0.1)' : 'none',
+                border: 'none',
+                borderRadius: 999,
+                padding: '7px 18px',
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 500,
+                fontSize: '0.88rem',
+                color: active ? '#c8ff00' : '#888',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={e => { if (!active) e.target.style.color = '#f0f0f0'; }}
+              onMouseLeave={e => { if (!active) e.target.style.color = '#888'; }}
+              >
+                {item}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{ background: 'none', border: 'none', color: '#f0f0f0', cursor: 'pointer', display: 'none' }}
+          className="show-mobile"
+        >
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div style={{
+          background: '#181818',
+          borderTop: '1px solid #2e2e2e',
+          padding: '16px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4
+        }}>
+          {NAV_ITEMS.map(item => (
+            <button key={item} onClick={() => scrollToSection(refMap[item])} style={{
+              background: 'none', border: 'none',
+              textAlign: 'left',
+              padding: '10px 8px',
+              fontFamily: 'DM Sans, sans-serif',
+              fontWeight: 500,
+              fontSize: '1rem',
+              color: activeSection === item.toLowerCase() ? '#c8ff00' : '#888',
+              cursor: 'pointer',
+              borderBottom: '1px solid #2e2e2e'
+            }}>
+              {item}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: block !important; }
+        }
+        @media (min-width: 769px) {
+          .show-mobile { display: none !important; }
+        }
+      `}</style>
+    </nav>
+  );
 };
 
 export default Navbar;

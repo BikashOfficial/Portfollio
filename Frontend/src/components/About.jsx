@@ -1,49 +1,63 @@
 import React from 'react';
+import { GraduationCap, MapPin, Code2, Zap } from 'lucide-react';
+
+const HIGHLIGHTS = [
+  { icon: <GraduationCap size={18} />, label: 'B.Tech CSE', sub: 'Einstein Academy, Odisha — 2025', color: '#c8ff00' },
+  { icon: <MapPin size={18} />, label: 'Odisha, India', sub: 'Belpara, Balangir', color: '#38d9f5' },
+  { icon: <Code2 size={18} />, label: 'MERN Stack', sub: 'Specialisation', color: '#b57bee' },
+  { icon: <Zap size={18} />, label: 'Real-time Apps', sub: 'Socket.io • APIs • Auth', color: '#ff8c42' },
+];
 
 const About = ({ aboutRef }) => {
-    return (
-        <section id="about" ref={aboutRef} className="py-20 bg-white dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold mb-4">About Me</h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                        Recent B.Tech CSE graduate specializing in MERN-stack development with a passion for creating innovative web solutions.
-                    </p>
-                </div>
+  return (
+    <section id="about" ref={aboutRef} style={{ padding: '100px 24px', position: 'relative', overflow: 'hidden' }}>
+      {/* accent line */}
+      <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: 3, height: '60%', background: 'linear-gradient(180deg, transparent, #c8ff00, transparent)' }} />
 
-                <div className="items-center">
-                    <div>
-                        <h3 className="text-2xl font-bold mb-6">Qualification</h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                            I'm a recent Computer Science Engineering graduate from Einstein Academy of Technology and Management, Odisha.
-                            My journey in web development began with a curiosity for creating digital solutions that make a difference.
-                        </p>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                            I specialize in the MERN stack and have hands-on experience building full-stack applications with features like
-                            real-time communication, payment integration, and responsive user interfaces. I'm passionate about writing clean,
-                            efficient code and staying updated with the latest web technologies.
-                        </p>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }} data-reveal>
 
-                        <div className=" mt-8">
-                            {/* grid grid-cols-2  gap-6 */}
-                            <div>
-                                <h4 className="font-semibold text-lg mb-2">Education</h4>
-                                <p className="text-gray-700 dark:text-gray-400 font-medium">B.Tech CSE, 2025</p>
-                                <p className="text-gray-600 dark:text-gray-500 font-medium">Einstein Academy of Technology and Management, Khurda, Odisha</p>
-                            </div>
-                            {/* <div>
-                                <h4 className="font-semibold text-lg mb-2">Current Location</h4>
-                                <p className="text-gray-600 dark:text-gray-400">Belpara, Balangir</p>
-                                <p className="text-gray-500 dark:text-gray-500 text-sm">Odisha, India</p>
-                            </div> */}
-                        </div>
-                    </div>
+          {/* Left: text */}
+          <div>
+            <div className="section-label">About Me</div>
+            <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.1, marginBottom: 24, letterSpacing: '-0.02em' }}>
+              Turning ideas into<br /><span style={{ color: '#c8ff00' }}>working products</span>
+            </h2>
+            <p style={{ color: '#aaa', lineHeight: 1.8, marginBottom: 20, fontSize: '0.97rem' }}>
+              I'm a recent Computer Science Engineering graduate from Einstein Academy of Technology and Management, Odisha. My journey in web development began with a curiosity for building digital solutions that actually make a difference.
+            </p>
+            <p style={{ color: '#aaa', lineHeight: 1.8, fontSize: '0.97rem' }}>
+              I specialise in the MERN stack and have hands-on experience building full-stack applications featuring real-time communication, payment integration, AI-powered features, and responsive interfaces. I care deeply about writing clean, efficient code.
+            </p>
 
-
-                </div>
+            {/* Fun facts */}
+            <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {['Clean Code', 'REST APIs', 'Real-time', 'Responsive UI', 'Auth & JWT', 'Stripe'].map(t => (
+                <span key={t} className="tag">{t}</span>
+              ))}
             </div>
-        </section>
-    );
+          </div>
+
+          {/* Right: highlight cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            {HIGHLIGHTS.map(({ icon, label, sub, color }) => (
+              <div key={label} className="card" style={{ padding: 24 }}>
+                <div style={{ color, marginBottom: 12 }}>{icon}</div>
+                <div style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1rem', marginBottom: 4 }}>{label}</div>
+                <div style={{ color: '#666', fontSize: '0.78rem', lineHeight: 1.5 }}>{sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          [data-reveal] { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+      `}</style>
+    </section>
+  );
 };
 
 export default About;

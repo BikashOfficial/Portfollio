@@ -1,90 +1,105 @@
 import React from 'react';
-import { Code, Database, Server, Globe } from 'lucide-react';
-import {
-  SiReact, SiJavascript, SiHtml5, SiCss3, SiTailwindcss, SiBootstrap,
-  SiNodedotjs, SiExpress, SiSocketdotio,
-  SiMongodb, SiMysql,
-  SiGit, SiGithub
-} from 'react-icons/si';
+
+const SKILL_GROUPS = [
+  {
+    label: 'Frontend',
+    color: '#c8ff00',
+    skills: [
+      { name: 'React.js', icon: '⚛️' },
+      { name: 'JavaScript', icon: '🟨' },
+      { name: 'HTML5', icon: '🧱' },
+      { name: 'CSS3', icon: '🎨' },
+      { name: 'Tailwind CSS', icon: '💨' },
+      { name: 'Bootstrap', icon: '🅱️' },
+    ]
+  },
+  {
+    label: 'Backend',
+    color: '#38d9f5',
+    skills: [
+      { name: 'Node.js', icon: '🟩' },
+      { name: 'Express.js', icon: '🚂' },
+      { name: 'Socket.io', icon: '⚡' },
+      { name: 'REST APIs', icon: '🔌' },
+    ]
+  },
+  {
+    label: 'Database',
+    color: '#b57bee',
+    skills: [
+      { name: 'MongoDB', icon: '🍃' },
+      { name: 'SQL / MySQL', icon: '🗃️' },
+    ]
+  },
+  {
+    label: 'Tools & More',
+    color: '#ff8c42',
+    skills: [
+      { name: 'Git', icon: '🔀' },
+      { name: 'GitHub', icon: '🐙' },
+      { name: 'OOP', icon: '🧩' },
+      { name: 'Stripe', icon: '💳' },
+      { name: 'Gemini API', icon: '🤖' },
+      { name: 'JWT Auth', icon: '🔐' },
+    ]
+  }
+];
 
 const Skills = ({ skillsRef }) => {
-  const skills = [
-    {
-      category: "Frontend",
-      items: [
-        { name: "React.js", icon: <SiReact className="w-4 h-4 text-blue-500" /> },
-        { name: "JavaScript", icon: <SiJavascript className="w-4 h-4 text-yellow-500" /> },
-        { name: "HTML5", icon: <SiHtml5 className="w-4 h-4 text-orange-500" /> },
-        { name: "CSS3", icon: <SiCss3 className="w-4 h-4 text-blue-600" /> },
-        { name: "Tailwind CSS", icon: <SiTailwindcss className="w-4 h-4 text-cyan-500" /> },
-        { name: "Bootstrap", icon: <SiBootstrap className="w-4 h-4 text-purple-600" /> }
-      ],
-      icon: <Globe className="w-6 h-6" />
-    },
-    {
-      category: "Backend",
-      items: [
-        { name: "Node.js", icon: <SiNodedotjs className="w-4 h-4 text-green-600" /> },
-        { name: "Express.js", icon: <SiExpress className="w-4 h-4 text-gray-600" /> },
-        { name: "Socket.io", icon: <SiSocketdotio className="w-4 h-4 text-black dark:text-white" /> },
-        { name: "RESTful APIs", icon: <Code className="w-4 h-4 text-blue-500" /> }
-      ],
-      icon: <Server className="w-6 h-6" />
-    },
-    {
-      category: "Database",
-      items: [
-        { name: "MongoDB", icon: <SiMongodb className="w-4 h-4 text-green-500" /> },
-        { name: "SQL", icon: <SiMysql className="w-4 h-4 text-blue-700" /> }
-      ],
-      icon: <Database className="w-6 h-6" />
-    },
-    {
-      category: "Tools & Others",
-      items: [
-        { name: "Git", icon: <SiGit className="w-4 h-4 text-orange-600" /> },
-        { name: "GitHub", icon: <SiGithub className="w-4 h-4 text-gray-800 dark:text-white" /> },
-        { name: "OOPs", icon: <Code className="w-4 h-4 text-purple-500" /> }
-      ],
-      icon: <Code className="w-6 h-6" />
-    }
-  ];
-
   return (
-    <section id="skills" ref={skillsRef} className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Technical Skills</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Technologies and tools I use to bring ideas to life
-          </p>
+    <section id="skills" ref={skillsRef} style={{ padding: '100px 24px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+
+        <div className="reveal" style={{ marginBottom: 60 }}>
+          <div className="section-label">Tech Stack</div>
+          <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            Tools I <span style={{ color: '#c8ff00' }}>Work With</span>
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skills.map((skillCategory, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-2xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">
-                  {skillCategory.icon}
-                </div>
-                <h3 className="text-lg font-bold">{skillCategory.category}</h3>
+        {/* Skill groups */}
+        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 24 }}>
+          {SKILL_GROUPS.map(({ label, color, skills }) => (
+            <div key={label} className="card" style={{ padding: 28 }}>
+              {/* Category header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: color, boxShadow: `0 0 10px ${color}80` }} />
+                <span style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '0.9rem', color }}>{label}</span>
               </div>
-              <div className="space-y-2">
-                {skillCategory.items.map((skill, skillIndex) => (
-                  <div
-                    key={skillIndex}
-                    className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-900 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200"
+
+              {/* Skills list */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {skills.map(({ name, icon }) => (
+                  <div key={name} style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    padding: '8px 12px',
+                    background: 'var(--c-bg)',
+                    borderRadius: 8,
+                    border: '1px solid var(--c-border)',
+                    transition: 'border-color 0.2s, background 0.2s',
+                    cursor: 'default'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = color; e.currentTarget.style.background = `${color}0d`; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--c-border)'; e.currentTarget.style.background = 'var(--c-bg)'; }}
                   >
-                    {skill.icon}
-                    <span>{skill.name}</span>
+                    <span style={{ fontSize: '0.9rem' }}>{icon}</span>
+                    <span style={{ fontFamily: 'DM Sans', fontWeight: 500, fontSize: '0.85rem', color: '#ccc' }}>{name}</span>
                   </div>
                 ))}
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Marquee strip */}
+        <div className="reveal" style={{ marginTop: 60, overflow: 'hidden', padding: '20px 0', borderTop: '1px solid var(--c-border)', borderBottom: '1px solid var(--c-border)' }}>
+          <div className="marquee-track">
+            {[...SKILL_GROUPS.flatMap(g => g.skills.map(s => s.name)), ...SKILL_GROUPS.flatMap(g => g.skills.map(s => s.name))].map((name, i) => (
+              <span key={i} style={{ fontFamily: 'Syne', fontWeight: 600, fontSize: '0.8rem', color: '#444', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>
+                {name} <span style={{ color: '#c8ff00', marginLeft: 8 }}>✦</span>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

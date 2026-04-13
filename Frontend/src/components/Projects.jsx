@@ -1,132 +1,137 @@
-import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+
+const PROJECTS = [
+  {
+    title: 'Uber Clone',
+    desc: 'Mobile-friendly ride-hailing app with real-time booking, driver-passenger authentication, and geolocation tracking.',
+    tech: ['React.js', 'Node.js', 'MongoDB', 'Socket.io', 'Tailwind', 'Google Maps API'],
+    demo: 'https://uber-clone-wn6z.onrender.com',
+    github: 'https://github.com/BikashOfficial/UBER-clone',
+    img: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=350&fit=crop',
+    accent: '#c8ff00',
+    emoji: '🚗'
+  },
+  {
+    title: 'Tomato — Food App',
+    desc: 'Comprehensive food ordering platform with cart management, authentication, order tracking, and an admin panel.',
+    tech: ['React.js', 'Node.js', 'MongoDB', 'Stripe', 'Tailwind'],
+    demo: 'https://tomato-food-ordering-app.onrender.com',
+    github: 'https://github.com/BikashOfficial/Tomato-Food-Ordering-APP',
+    img: 'https://img.youtube.com/vi/9jRTo7ILxQc/maxresdefault.jpg',
+    accent: '#ff5c5c',
+    emoji: '🍅'
+  },
+  {
+    title: 'PDF Assistant',
+    desc: 'Upload a PDF and ask AI-powered questions — extracts answers directly from document content using the Gemini API.',
+    tech: ['React.js', 'Node.js', 'MongoDB', 'Express', 'Gemini API', 'Tailwind'],
+    demo: 'https://pdf-qna-sigma.vercel.app/',
+    github: 'https://github.com/BikashOfficial/PDF_QNA',
+    img: 'https://iili.io/Fg7fjEl.md.png',
+    accent: '#b57bee',
+    emoji: '📄'
+  },
+  {
+    title: 'Quick Chat',
+    desc: 'Full-stack real-time chat app with socket-based messaging, user auth, modern UI, and active user status.',
+    tech: ['React.js', 'Node.js', 'Socket.io', 'MongoDB', 'Tailwind'],
+    demo: 'https://quick-chat-two.vercel.app',
+    github: 'https://github.com/BikashOfficial/chatty',
+    img: 'https://img.youtube.com/vi/tTCam8KGVRE/maxresdefault.jpg',
+    accent: '#38d9f5',
+    emoji: '💬'
+  },
+  {
+    title: 'WonderHub',
+    desc: 'Hotel review platform with CRUD operations, user authentication, and interactive search.',
+    tech: ['Node.js', 'Express.js', 'MongoDB', 'Bootstrap', 'JavaScript'],
+    demo: '#',
+    github: 'https://github.com/BikashOfficial/Wonder-Hub',
+    img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=350&fit=crop',
+    accent: '#ff8c42',
+    emoji: '🏨'
+  },
+  {
+    title: 'EasyComplaint',
+    desc: 'Submit and track complaints. Admins manage and resolve them with JWT auth and email notifications.',
+    tech: ['React', 'Vite', 'Tailwind', 'Node.js', 'MongoDB', 'JWT', 'Nodemailer'],
+    demo: 'https://easy-complaint-delta.vercel.app/',
+    github: 'https://github.com/BikashOfficial/easyComplaint',
+    img: 'https://knowmax-ai-website.s3.amazonaws.com/wp-content/uploads/2020/12/21171716/Best-way-to-handle-customer-complaints.jpg',
+    accent: '#c8ff00',
+    emoji: '📋'
+  }
+];
 
 const Projects = ({ projectsRef }) => {
-  const projects = [
-    {
-      title: "Uber Clone",
-      description: "A mobile-friendly ride-hailing application with real-time booking, driver-passenger authentication, and geolocation tracking using Google Maps API.",
-      tech: ["React.js", "Node.js", "MongoDB", "Socket.io", "Tailwind CSS", "Google Maps API"],
-      demo: "https://uber-clone-wn6z.onrender.com",
-      github: "https://github.com/BikashOfficial/UBER-clone",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=250&fit=crop"
-    },
-    {
-      title: "Tomato - Food Ordering App",
-      description: "A comprehensive food ordering platform with cart management, authentication, order tracking, and admin panel for restaurant management.",
-      tech: ["React.js", "Node.js", "MongoDB", "Socket.io", "Stripe", "Tailwind CSS"],
-      demo: "https://tomato-food-ordering-app.onrender.com",
-      github: "https://github.com/BikashOfficial/Tomato-Food-Ordering-APP",
-      image: "https://img.youtube.com/vi/9jRTo7ILxQc/maxresdefault.jpg"
-    },
-    {
-      title: "WonderHub - Hotel Review System",
-      description: "A platform for users to review and rate hotels with CRUD operations, user authentication, and interactive search functionality.",
-      tech: ["Node.js", "Express.js", "MongoDB", "Bootstrap", "JavaScript"],
-      demo: "#",
-      github: "https://github.com/BikashOfficial/Wonder-Hub",
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=250&fit=crop"
-    },
-    {
-      title: "PDF - Assistant",
-      description: "A web app that lets users upload PDF files and ask AI-powered questions to extract answers directly from the document’s content.",
-      tech: ["React.js", "Node.js", "MongoDB", "Express", "Gemini API", "Tailwind CSS"],
-      demo: "https://pdf-qna-sigma.vercel.app/",
-      github: "https://github.com/BikashOfficial/PDF_QNA",
-      image: "https://iili.io/Fg7fjEl.md.png"
-    },
-    {
-      title: "Quick Chat",
-      description: "A full-stack real-time chat application featuring socket-based messaging, user authentication, and a modern chat UI with support for active user status.",
-      tech: ["React.js", "Node.js", "Express.js", "Socket.io", "MongoDB", "Tailwind CSS"],
-      demo: "https://quick-chat-two.vercel.app",
-      github: "https://github.com/BikashOfficial/chatty",
-      image: "https://img.youtube.com/vi/tTCam8KGVRE/maxresdefault.jpg"
-    },
-    {
-      title: "EasyComplaint",
-      description: "A full-stack web app for users to submit and track complaints, while admins manage and resolve them with secure authentication and email notifications..",
-      tech: ["React", "Vite", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "JWT", "Nodemailer"],
-      demo: "https://easy-complaint-delta.vercel.app/",
-      github: "https://github.com/BikashOfficial/easyComplaint",
-      image: "https://knowmax-ai-website.s3.amazonaws.com/wp-content/uploads/2020/12/21171716/Best-way-to-handle-customer-complaints.jpg"
-    }
-
-  ];
+  const [hovered, setHovered] = useState(null);
 
   return (
-    <section id="projects" ref={projectsRef} className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Here are some of my recent projects showcasing my full-stack development skills
-          </p>
+    <section id="projects" ref={projectsRef} style={{ padding: '100px 24px', background: 'var(--c-surface)' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+
+        <div className="reveal" style={{ marginBottom: 60 }}>
+          <div className="section-label">Featured Work</div>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <h2 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+              Things I've <span style={{ color: '#c8ff00' }}>Built</span>
+            </h2>
+            <a href="https://github.com/BikashOfficial" target="_blank" rel="noopener noreferrer"
+              style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#888', fontSize: '0.85rem', textDecoration: 'none', fontWeight: 500 }}
+              onMouseEnter={e => e.currentTarget.style.color = '#c8ff00'}
+              onMouseLeave={e => e.currentTarget.style.color = '#888'}
+            >
+              All on GitHub <ArrowRight size={14} />
+            </a>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 20 }}>
+          {PROJECTS.map((p, i) => (
             <div
-              key={index}
-              className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+              key={i}
+              className="card"
+              style={{ overflow: 'hidden', borderColor: hovered === i ? p.accent : undefined }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Image */}
+              <div style={{ position: 'relative', height: 190, overflow: 'hidden' }}>
+                <img src={p.img} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transform: hovered === i ? 'scale(1.06)' : 'scale(1)', transition: 'transform 0.4s ease' }} />
+                <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, rgba(14,14,14,0.9) 0%, transparent 55%)` }} />
+                <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: '#0e0e0e', borderRadius: 999, padding: '4px 12px', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.7rem' }}>
+                  {p.emoji} {p.title.split(' ')[0]}
+                </div>
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">
-                  {project.description}
-                </p>
+              {/* Content */}
+              <div style={{ padding: '20px 22px 22px' }}>
+                <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.1rem', marginBottom: 8 }}>{p.title}</h3>
+                <p style={{ color: '#888', fontSize: '0.83rem', lineHeight: 1.65, marginBottom: 14 }}>{p.desc}</p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {/* {project.tech.slice(0, 3).map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))} */}
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full"
-                    >
-                      {tech}
-                    </span>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 18 }}>
+                  {p.tech.map(t => (
+                    <span key={t} className="tag" style={{ fontSize: '0.68rem' }}>{t}</span>
                   ))}
-                  {/* {project.tech.length > 3 && (
-                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded-full">
-                      +{project.tech.length - 3} more
-                    </span>
-                  )} */}
                 </div>
 
-                <div className="flex gap-3">
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+                <div style={{ display: 'flex', gap: 10 }}>
+                  {p.demo !== '#' && (
+                    <a href={p.demo} target="_blank" rel="noopener noreferrer"
+                      style={{ display: 'flex', alignItems: 'center', gap: 6, background: p.accent, color: '#0e0e0e', borderRadius: 999, padding: '7px 16px', fontFamily: 'Syne', fontWeight: 700, fontSize: '0.78rem', textDecoration: 'none', transition: 'opacity 0.2s' }}
+                      onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                    >
+                      <ExternalLink size={13} /> Live
+                    </a>
+                  )}
+                  <a href={p.github} target="_blank" rel="noopener noreferrer"
+                    style={{ display: 'flex', alignItems: 'center', gap: 6, border: '1px solid #2e2e2e', color: '#888', borderRadius: 999, padding: '7px 16px', fontFamily: 'Syne', fontWeight: 600, fontSize: '0.78rem', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s' }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#888'; e.currentTarget.style.color = '#f0f0f0'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#2e2e2e'; e.currentTarget.style.color = '#888'; }}
                   >
-                    <ExternalLink className="w-4 h-4" />
-                    Live Demo
-                  </a>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
-                  >
-                    <Github className="w-4 h-4" />
-                    Code
+                    <Github size={13} /> Code
                   </a>
                 </div>
               </div>
