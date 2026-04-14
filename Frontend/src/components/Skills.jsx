@@ -1,49 +1,5 @@
 import React from 'react';
-
-const SKILL_GROUPS = [
-  {
-    label: 'Frontend',
-    color: '#c8ff00',
-    skills: [
-      { name: 'React.js', icon: '⚛️' },
-      { name: 'JavaScript', icon: '🟨' },
-      { name: 'HTML5', icon: '🧱' },
-      { name: 'CSS3', icon: '🎨' },
-      { name: 'Tailwind CSS', icon: '💨' },
-      { name: 'Bootstrap', icon: '🅱️' },
-    ]
-  },
-  {
-    label: 'Backend',
-    color: '#38d9f5',
-    skills: [
-      { name: 'Node.js', icon: '🟩' },
-      { name: 'Express.js', icon: '🚂' },
-      { name: 'Socket.io', icon: '⚡' },
-      { name: 'REST APIs', icon: '🔌' },
-    ]
-  },
-  {
-    label: 'Database',
-    color: '#b57bee',
-    skills: [
-      { name: 'MongoDB', icon: '🍃' },
-      { name: 'SQL / MySQL', icon: '🗃️' },
-    ]
-  },
-  {
-    label: 'Tools & More',
-    color: '#ff8c42',
-    skills: [
-      { name: 'Git', icon: '🔀' },
-      { name: 'GitHub', icon: '🐙' },
-      { name: 'OOP', icon: '🧩' },
-      { name: 'Stripe', icon: '💳' },
-      { name: 'Gemini API', icon: '🤖' },
-      { name: 'JWT Auth', icon: '🔐' },
-    ]
-  }
-];
+import { SKILL_GROUPS } from '../data/skills';
 
 const Skills = ({ skillsRef }) => {
   return (
@@ -79,8 +35,8 @@ const Skills = ({ skillsRef }) => {
                     transition: 'border-color 0.2s, background 0.2s',
                     cursor: 'default'
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = color; e.currentTarget.style.background = `${color}0d`; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--c-border)'; e.currentTarget.style.background = 'var(--c-bg)'; }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = color; e.currentTarget.style.background = `${color}0d`; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--c-border)'; e.currentTarget.style.background = 'var(--c-bg)'; }}
                   >
                     <span style={{ fontSize: '0.9rem' }}>{icon}</span>
                     <span style={{ fontFamily: 'DM Sans', fontWeight: 500, fontSize: '0.85rem', color: '#ccc' }}>{name}</span>
