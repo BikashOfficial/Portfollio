@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import CustomCursor from './components/CustomCursor';
+import AccessCodeGate from './components/AccessCodeGate';
+import HomePage from './pages/HomePage';
 import './index.css';
+
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -50,25 +49,43 @@ const App = () => {
   };
 
   return (
-    <div>
-      <Navbar
-        activeSection={activeSection}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-        scrollToSection={scrollToSection}
-        heroRef={heroRef}
-        aboutRef={aboutRef}
-        projectsRef={projectsRef}
-        skillsRef={skillsRef}
-        contactRef={contactRef}
+    <Router>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#1a1a1a',
+            color: '#f0f0f0',
+            border: '1px solid #2a2a2a',
+            borderRadius: '10px',
+            fontFamily: 'Syne, sans-serif',
+            fontSize: '0.9rem'
+          },
+          success: { iconTheme: { primary: '#c8ff00', secondary: '#0e0e0e' } },
+          error:   { iconTheme: { primary: '#ff4444', secondary: '#fff' } }
+        }}
       />
-      <Hero heroRef={heroRef} scrollToSection={scrollToSection} projectsRef={projectsRef} />
-      <About aboutRef={aboutRef} />
-      <Projects projectsRef={projectsRef} />
-      <Skills skillsRef={skillsRef} />
-      <Contact contactRef={contactRef} />
-      <Footer />
-    </div>
+      <CustomCursor />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              activeSection={activeSection}
+              mobileMenuOpen={mobileMenuOpen}
+              setMobileMenuOpen={setMobileMenuOpen}
+              scrollToSection={scrollToSection}
+              heroRef={heroRef}
+              aboutRef={aboutRef}
+              projectsRef={projectsRef}
+              skillsRef={skillsRef}
+              contactRef={contactRef}
+            />
+          }
+        />
+        <Route path="/myspace" element={<AccessCodeGate />} />
+      </Routes>
+    </Router>
   );
 };
 

@@ -32,7 +32,7 @@ const Navbar = ({ activeSection, mobileMenuOpen, setMobileMenuOpen, scrollToSect
         </button>
 
         {/* Desktop nav */}
-        <div style={{ display: 'flex', gap: 4 }} className="hidden-mobile">
+        <div style={{ display: 'flex', gap: 4, fontFamily: 'Syne, sans-serif' }} className="hidden-mobile">
           {NAV_ITEMS.map(item => {
             const active = activeSection === item.toLowerCase();
             return (
@@ -41,15 +41,16 @@ const Navbar = ({ activeSection, mobileMenuOpen, setMobileMenuOpen, scrollToSect
                 border: 'none',
                 borderRadius: 999,
                 padding: '7px 18px',
-                fontFamily: 'DM Sans, sans-serif',
-                fontWeight: 500,
+                // fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 50,
+                fontFamily: 'Syne, sans-serif',
                 fontSize: '0.88rem',
                 color: active ? '#c8ff00' : '#888',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
-              onMouseEnter={e => { if (!active) e.target.style.color = '#f0f0f0'; }}
-              onMouseLeave={e => { if (!active) e.target.style.color = '#888'; }}
+                onMouseEnter={e => { if (!active) e.target.style.color = '#f0f0f0'; }}
+                onMouseLeave={e => { if (!active) e.target.style.color = '#888'; }}
               >
                 {item}
               </button>
@@ -60,7 +61,7 @@ const Navbar = ({ activeSection, mobileMenuOpen, setMobileMenuOpen, scrollToSect
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{ background: 'none', border: 'none', color: '#f0f0f0', cursor: 'pointer', display: 'none' }}
+          style={{ fontFamily: 'Syne, sans-serif', background: 'none', border: 'none', color: '#f0f0f0', cursor: 'pointer', display: 'none' }}
           className="show-mobile"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}

@@ -1,67 +1,29 @@
-const express = require('express');
-const cors = require('cors');
+import dotenv from 'dotenv'
+import fs from 'fs';
+dotenv.config();
+import express from 'express';
+import connectDB from './config/db.js';
+import cors from 'cors';
+import contactRoutes from './routes/contact.js';
+import mySpaceRoutes from './routes/mySpace.js';
+import authRoutes from './routes/auth.js';
+
 const app = express();
 
+// Ensure uploads temp directory exists
+if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
+
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'], // Common React/Vite ports
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Contact form endpoint
-app.post('/api/contact', async (req, res) => {
-  try {
-    const { name, email, message } = req.body;
+connectDB();
 
-    // Validation
-    if (!name || !email || !message) {
-      return res.status(400).json({
-        success: false,
-        message: 'All fields (name, email, message) are required'
-      });
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Please provide a valid email address'
-      });
-    }
-
-    // Log the message (in production, you might want to save to database or send email)
-    console.log('New contact form submission:');
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Message:', message);
-    console.log('Timestamp:', new Date().toISOString());
-    console.log('---');
-
-    // Simulate processing time
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Success response
-    res.status(200).json({
-      success: true,
-      message: 'Thank you for your message! I will get back to you soon.',
-      data: {
-        name,
-        email,
-        timestamp: new Date().toISOString()
-      }
-    });
-
-  } catch (error) {
-    console.error('Error processing contact form:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Internal server error. Please try again later.'
-    });
-  }
-});
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api', mySpaceRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -77,7 +39,10 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Portfolio Backend API',
     endpoints: {
+      auth: 'POST /api/auth/verify (verify access code)',
       contact: 'POST /api/contact',
+      projects: 'GET /api/projects, POST /api/projects/update (requires x-admin-key)',
+      skills: 'GET /api/skills, POST /api/skills/update (requires x-admin-key)',
       health: 'GET /api/health'
     }
   });

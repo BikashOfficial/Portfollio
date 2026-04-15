@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Phone, Github, Linkedin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { submitContactForm } from '../services/commonService';
 
 const Contact = ({ contactRef }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -20,20 +21,15 @@ const Contact = ({ contactRef }) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const result = await res.json();
-      if (res.ok) {
+      const result = await submitContactForm(formData);
+      if (result.success) {
         setSubmitStatus({ type: 'success', message: result.message });
         setFormData({ name: '', email: '', message: '' });
       } else {
         setSubmitStatus({ type: 'error', message: result.message || 'Something went wrong.' });
       }
-    } catch {
-      setSubmitStatus({ type: 'error', message: 'Network error. Is the server running?' });
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: error.message || 'Network error. Is the server running?' });
     } finally {
       setIsSubmitting(false);
     }

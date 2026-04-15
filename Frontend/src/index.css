@@ -17,7 +17,11 @@
   scroll-behavior: smooth;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: var(--c-bg);
@@ -37,9 +41,18 @@ body::before {
 }
 
 /* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--c-bg); }
-::-webkit-scrollbar-thumb { background: var(--c-lime); border-radius: 999px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--c-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-lime);
+  border-radius: 999px;
+}
 
 /* SECTION FADE IN */
 .reveal {
@@ -47,6 +60,7 @@ body::before {
   transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
+
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
@@ -60,16 +74,22 @@ body::before {
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(200, 255, 0, 0.06) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   transition: left 0.15s ease, top 0.15s ease;
 }
 
 /* MARQUEE */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
+
 .marquee-track {
   display: flex;
   gap: 2rem;
@@ -79,23 +99,46 @@ body::before {
 
 /* BLINK CURSOR */
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
-.blink { animation: blink 1s step-end infinite; }
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
 
 /* FLOAT */
 @keyframes floatY {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
 }
-.float { animation: floatY 5s ease-in-out infinite; }
+
+.float {
+  animation: floatY 5s ease-in-out infinite;
+}
 
 /* SPIN SLOW */
 @keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
-.spin-slow { animation: spinSlow 12s linear infinite; }
+
+.spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
 
 /* TAG PILL */
 .tag {
@@ -112,7 +155,11 @@ body::before {
   color: var(--c-muted);
   transition: all 0.2s;
 }
-.tag:hover { border-color: var(--c-lime); color: var(--c-lime); }
+
+.tag:hover {
+  border-color: var(--c-lime);
+  color: var(--c-lime);
+}
 
 /* CARD */
 .card {
@@ -121,10 +168,11 @@ body::before {
   border-radius: 16px;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
+
 .card:hover {
   transform: translateY(-6px);
   border-color: var(--c-lime);
-  box-shadow: 0 0 30px rgba(200,255,0,0.08);
+  box-shadow: 0 0 30px rgba(200, 255, 0, 0.08);
 }
 
 /* BUTTON PRIMARY */
@@ -144,9 +192,10 @@ body::before {
   cursor: pointer;
   border: none;
 }
+
 .btn-primary:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(200,255,0,0.35);
+  box-shadow: 0 0 30px rgba(200, 255, 0, 0.35);
 }
 
 /* BUTTON OUTLINE */
@@ -165,7 +214,11 @@ body::before {
   transition: border-color 0.2s, color 0.2s;
   cursor: pointer;
 }
-.btn-outline:hover { border-color: var(--c-lime); color: var(--c-lime); }
+
+.btn-outline:hover {
+  border-color: var(--c-lime);
+  color: var(--c-lime);
+}
 
 /* SECTION LABEL */
 .section-label {
@@ -179,6 +232,7 @@ body::before {
   color: var(--c-lime);
   margin-bottom: 1rem;
 }
+
 .section-label::before {
   content: '';
   display: block;
@@ -200,7 +254,26 @@ body::before {
   outline: none;
   transition: border-color 0.2s;
 }
-.field-input:focus { border-color: var(--c-lime); }
-.field-input::placeholder { color: var(--c-muted); }
 
-h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+.field-input:focus {
+  border-color: var(--c-lime);
+}
+
+.field-input::placeholder {
+  color: var(--c-muted);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Syne', sans-serif;
+}
+
+
+/* .hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex-direction: row;
+} */

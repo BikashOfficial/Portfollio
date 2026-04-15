@@ -8,7 +8,7 @@ const Footer = () => (
         Bikash<span style={{ color: '#444' }}>.</span>
       </span>
       <span style={{ color: '#444', fontSize: '0.8rem', fontFamily: 'DM Sans' }}>
-        © 2025 Bikash Meher — All Rights Reserved
+        © {new Date().getFullYear()} Bikash Meher — All Rights Reserved
       </span>
       <div style={{ display: 'flex', gap: 12 }}>
         {[

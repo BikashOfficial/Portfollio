@@ -106,7 +106,7 @@ const Hero = ({ heroRef, scrollToSection, projectsRef }) => {
             {/* CTAs */}
             <div className="hero-ctas">
               <button className="btn-primary" onClick={() => scrollToSection(projectsRef)}>
-                View My Work <ArrowDown size={15} />
+                My Work <ArrowDown size={15} />
               </button>
               <a
                 href="https://drive.google.com/file/d/18UGUHSrI_aI1QMqh6qPIPdy19V8Cf5VI/view?usp=drive_link"
@@ -171,8 +171,9 @@ const Hero = ({ heroRef, scrollToSection, projectsRef }) => {
 
         .hero-ctas {
           display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
+          gap: 30px;
+          // flex-wrap: wrap;
+          // flex-direction: column;
         }
 
         .hero-stats {
